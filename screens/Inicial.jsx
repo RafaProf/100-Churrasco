@@ -92,17 +92,18 @@ const NavigationDrawerStructure = (props) => {
         <Image
           source={{
             uri:
-              'https://raw.githubusercontent.com/AboutReact/sampleresource/master/drawerWhite.png',
+              'https://raw.githubusercontent.com/AboutReact/sampleresource/master/drawerWhite.pnng',
           }}
           style={{width: 25, height: 25, marginLeft: 5}}
         />
+                <Text style={{color:'white'}}>Menu</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
 //Chamada de screen's
-function firstScreenStack({navigation}) {
+function AgendaScreenStack({navigation}) {
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
@@ -111,7 +112,7 @@ function firstScreenStack({navigation}) {
         options={{
           headerShown: false,
           headerLeft: () => (
-            <NavigationDrawerStructure
+            <NavigationDrawerStructure 
               navigationProps={navigation}
             />
           ),
@@ -165,7 +166,7 @@ linkFoto={(`http://intellissis2.ddns.net/${route.params.UserFly}.jpeg`)} />}>
 
     options={{drawerLabel: 'Sobre', drawerIcon: MyTheme.IconeHome(), 
     headerShown: true, headerTransparent: true,
-    headerStyle:{}, headerTintColor:'#fff', headerTitleAlign:'center',  headerTitle:'BackOffice',
+    headerStyle:{}, headerTintColor:'#fff', headerTitleAlign:'center',  headerTitle:'Sobre a Empresa',
     headerTitleStyle:{fontWeight: 'normal'} }}
     initialParams={{ meusParametros: route.params }} //IMPORTANTE
     component={Lobby} 
@@ -176,7 +177,7 @@ linkFoto={(`http://intellissis2.ddns.net/${route.params.UserFly}.jpeg`)} />}>
 
     options={{drawerLabel: 'Cardápio', drawerIcon: MyTheme.IconeCardapio(), 
     headerShown: true, headerTransparent: true,
-    headerStyle:{}, headerTintColor:'#fff', headerTitleAlign:'center',  headerTitle:'BackOffice',
+    headerStyle:{}, headerTintColor:'#fff', headerTitleAlign:'center',  headerTitle:'Cardápio',
     headerTitleStyle:{fontWeight: 'normal'} }}
     initialParams={{ meusParametros: route.params }} //IMPORTANTE
     component={CardapioStack} 
@@ -187,7 +188,7 @@ linkFoto={(`http://intellissis2.ddns.net/${route.params.UserFly}.jpeg`)} />}>
 
     options={{drawerLabel: 'Serviços', drawerIcon: MyTheme.IconeService(), 
     headerShown: true, headerTransparent: true,
-    headerStyle:{}, headerTintColor:'#fff', headerTitleAlign:'center',  headerTitle:'BackOffice',
+    headerStyle:{}, headerTintColor:'#fff', headerTitleAlign:'center',  headerTitle:'Serviços',
     headerTitleStyle:{fontWeight: 'normal'} }}
     initialParams={{ meusParametros: route.params }} //IMPORTANTE
     component={CardapioStack} 
@@ -198,10 +199,10 @@ linkFoto={(`http://intellissis2.ddns.net/${route.params.UserFly}.jpeg`)} />}>
 
     options={{drawerLabel: 'Agendamento', drawerIcon: MyTheme.IconeAgenda(), 
     headerShown: true, headerTransparent: true,
-    headerStyle:{}, headerTintColor:'#fff', headerTitleAlign:'center',  headerTitle:'BackOffice',
+    headerStyle:{}, headerTintColor:'#fff', headerTitleAlign:'center',  headerTitle:'Agendamento',
     headerTitleStyle:{fontWeight: 'normal'} }}
     initialParams={{ meusParametros: route.params }} //IMPORTANTE
-    component={CardapioStack} 
+    component={AgendaScreenStack} 
   />
 
 <Drawer.Screen //Tela Login - nav

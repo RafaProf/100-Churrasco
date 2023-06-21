@@ -14,7 +14,7 @@ export default function App({navigation}) {
   
   //Declaração de variáveis
   const [count, setCount] = useState(0);
-  const [textButtonHit, setText] = useState("Instagram");
+  const [textButtonHit, setText] = useState("Whatsapp");
   const [visible, setVisible] = useState(true);
 
 const toggleOverlay = () => {
@@ -81,7 +81,7 @@ const toggleOverlay = () => {
       
 
       <Button type="solid" color= "#e3770b" titleStyle={{ color: '#fff', marginHorizontal: 2 }}
-      onPress={() => Linking.openURL('https://www.instagram.com/100churrasco/')}
+      onPress={() => Linking.openURL('https://wa.me/5584994783521?text=Ol%C3%A1%2C+gostaria+de+um+or%C3%A7amento')}
       buttonStyle={{ backgroundColor: 'rgba(39, 39, 39, 1)' }}
       containerStyle={{
         width: 200,
@@ -92,8 +92,8 @@ const toggleOverlay = () => {
         {textButtonHit}{" "}
 
         <Icon 
-        name='instagram'
-        type='antdesign'
+        name='whatsapp'
+        type='font-awesome'
         color='#fff' />
       </Button>  
 

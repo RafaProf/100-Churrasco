@@ -59,7 +59,7 @@ const CustomSidebarMenu = (props) => {
         <Divider width={2} marginBottom={10} marginTop={10} />
 
         <DrawerItem
-          label="Contato"
+          label="Instagram"
           onPress={() => {Linking.openURL('https://instagram.com/100churrasco')}}
           //onPress={() => props.navigation.navigate('Login')}
           icon= {MyTheme.IconeContact()}
@@ -99,7 +99,7 @@ const CustomSidebarMenu = (props) => {
           color: 'grey',
           marginBottom: 20
         }}> 
-        With ♥ By  RaF@¬ 
+        By 100% Churrasco Dev.
       </Text>
     </SafeAreaView>
   );

@@ -56,7 +56,7 @@ export  function IconeLock (){
   }
 
   export  function IconeContact (){
-    return(({ focused, color, size }) => <Icon color={color} size={size} name={focused ? 'phone-android' : 'phone-android'} />)
+    return(({ focused, color, size }) => <Icon color={color} size={size} type='font-awesome' name={focused ? 'instagram' : 'instagram'} />)
   }
 
   export  function IconeService (){
