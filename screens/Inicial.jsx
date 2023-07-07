@@ -11,6 +11,7 @@ import Toast, { BaseToast, ErrorToast, InfoToast } from 'react-native-toast-mess
 import * as MyTheme from '../components/MyTheme';
 import CustomSidebarMenu from '../components/CustomSidebarMenu';
 import { Lobby } from './Lobby';
+import { Cardapio } from './Cardapio';
 
 //Config Toast
 const toastConfig = {
@@ -124,9 +125,20 @@ function AgendaScreenStack({navigation}) {
 
 function CardapioStack({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
-    </View>
+    <Stack.Navigator initialRouteName="Cardapio">
+      <Stack.Screen
+        name="Cardapio_Ini"
+        component={Cardapio}
+        options={{
+          headerShown: false,
+          headerLeft: () => (
+            <NavigationDrawerStructure 
+              navigationProps={navigation}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
   );
 }
 
