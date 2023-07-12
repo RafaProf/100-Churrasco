@@ -12,6 +12,8 @@ import * as MyTheme from '../components/MyTheme';
 import CustomSidebarMenu from '../components/CustomSidebarMenu';
 import { Lobby } from './Lobby';
 import { Cardapio } from './Cardapio';
+import { Servicos } from './Servicos';
+import { Login } from './Login';
 
 //Config Toast
 const toastConfig = {
@@ -142,6 +144,44 @@ function CardapioStack({ navigation }) {
   );
 }
 
+function ServicosStack({navigation}) {
+  return (
+    <Stack.Navigator initialRouteName="Servicos">
+      <Stack.Screen
+        name="Servicos_Ini"
+        component={Servicos}
+        options={{
+          headerShown: false,
+          headerLeft: () => (
+            <NavigationDrawerStructure 
+              navigationProps={navigation}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function LoginStack({navigation}) {
+  return (
+    <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen
+        name="Login_Ini"
+        component={Login}
+        options={{
+          headerShown: false,
+          headerLeft: () => (
+            <NavigationDrawerStructure 
+              navigationProps={navigation}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 export default function Inicial({route, navigation}, props) {
 
    //Cuidando da barra de navegação - android
@@ -203,7 +243,7 @@ linkFoto={(`http://intellissis2.ddns.net/${route.params.UserFly}.jpeg`)} />}>
     headerStyle:{}, headerTintColor:'#fff', headerTitleAlign:'center',  headerTitle:'Serviços',
     headerTitleStyle:{fontWeight: 'normal'} }}
     initialParams={{ meusParametros: route.params }} //IMPORTANTE
-    component={CardapioStack} 
+    component={ServicosStack} 
   />
 
 <Drawer.Screen //Tela Agendamento - nav
@@ -220,12 +260,12 @@ linkFoto={(`http://intellissis2.ddns.net/${route.params.UserFly}.jpeg`)} />}>
 <Drawer.Screen //Tela Login - nav
     name="Login"
 
-    options={{drawerLabel: 'Login Adm', drawerIcon: MyTheme.IconeLock(), 
+    options={{drawerLabel: 'Login', drawerIcon: MyTheme.IconeLock(), 
     headerShown: true, headerTransparent: true,
-    headerStyle:{}, headerTintColor:'#fff', headerTitleAlign:'center',  headerTitle:'BackOffice',
+    headerStyle:{}, headerTintColor:'#fff', headerTitleAlign:'center',  headerTitle:'Login do Sistema',
     headerTitleStyle:{fontWeight: 'normal'} }}
     initialParams={{ meusParametros: route.params }} //IMPORTANTE
-    component={CardapioStack} 
+    component={LoginStack} 
   />
 
 </Drawer.Navigator>
