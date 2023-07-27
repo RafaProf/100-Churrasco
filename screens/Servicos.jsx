@@ -6,6 +6,9 @@ import { Icon  } from "@rneui/themed";
 import * as NavigationBar from 'expo-navigation-bar';
 
 import { CardServicos } from '../components/CardServicos';
+import api from '../services/api';
+
+
 
 //test
 const DATA = [
@@ -62,6 +65,30 @@ const DATA = [
 
 export function Servicos({navigation, route}) {
 
+  const [dataGeral, seteDATA] = useState([]);
+
+//Efeito pra atualizar 
+  useEffect(() =>{
+
+    const obterServices = async ()=>{
+      await api
+      .get("servico").then( (response) => {
+      console.log("chegou os serviços"); 
+
+      seteDATA(response.data.data) //Definindo o array de DATA Json
+      console.log(dataGeral[0]);
+    })
+    .catch(function (error) {
+      console.error(error);
+    })
+    }
+
+    obterServices();
+
+  }, [])
+
+
+
     return(
         <View style={{ flex: 1,  backgroundColor:'#ddd', justifyContent: 'center' }}>
 
@@ -74,15 +101,15 @@ export function Servicos({navigation, route}) {
     <View style={styles.modalView}>
 
     <FlatList
-      data={DATA}
+      data={dataGeral}
       keyExtractor = {item => item.id}
       renderItem ={({item}) => (<CardServicos data={item}
-        linkFoto= {(item.linkFoto)} //{(`http://intellissis2.ddns.net/${LimparPost2(item.Usuario)}.jpeg`)}
+        linkFoto= {(item.link_foto)} //{(`http://intellissis2.ddns.net/${LimparPost2(item.Usuario)}.jpeg`)}
         ranks = 'RAFAEL'//test
         nome = {item.title}
         descricao = {item.descricao}
-        duracao = {item.duracao}
-        valor = {item.valorBase}
+        duracao = 'A combinar' //{item.duracao}
+        valor = {item.valor_base}
 
         
         /> )}

@@ -1,112 +1,102 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect  } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, ImageBackground, FlatList } from 'react-native';
 import { Button } from '@rneui/base';
 import { Icon  } from "@rneui/themed";
 import * as NavigationBar from 'expo-navigation-bar';
 
+import { CardServicos } from '../components/CardServicos';
+import api from '../services/api';
+
+
 export function Cardapio({navigation, route}) {
 
-return(
-    <View style={{ flex: 1,  backgroundColor:'#ddd', justifyContent: 'center' }}>
+  const [dataGeral, seteDATA] = useState([]);
 
-    <StatusBar backgroundColor="transparent" style="light" animated={true} translucent={true}/>
-
-    <ImageBackground source={require('../src/image/star.gif')} resizeMode="cover" style={styles.image}>
-
-
-
-    <View style={styles.modalView}>
-
-
-    <ScrollView contentContainerStyle={styles.scrollView}>      
-
-{/*Item 1 do cardápio */}
-    <Text style={{color:'white', fontSize:25, marginBottom:20, marginTop:30, backgroundColor:'black'}}>
-           {'      '} Churrasco Completo {'        '}
-        </Text>
-        <Text style={{color:'black', backgroundColor:'white', borderColor:'orange', borderWidth:1,
-           fontSize:16, marginBottom:20, marginTop:0, textAlign:'center'}}
-          >Acompanha Arroz Branco, Farofa Caseira, Vinagrete e Maionese Gourmet</Text>
-          <Image 
-        resizeMode='contain'
-        source={require('../src/image/capa7.jpg')}  
-        style={{width: 300, height:300, opacity:1, marginBottom: 30, marginTop:10 }} 
+  //Efeito pra atualizar 
+    useEffect(() =>{
+  
+      const obterCardapio = async ()=>{
+        await api
+        .get("cardapio").then( (response) => {
+        console.log("chegou o cardápio"); 
+  
+        seteDATA(response.data.data) //Definindo o array de DATA Json
+        console.log(dataGeral[0]);
+      })
+      .catch(function (error) {
+        console.error(error);
+      })
+      }
+  
+      obterCardapio();
+  
+    }, [])
+  
+  
+  
+      return(
+          <View style={{ flex: 1,  backgroundColor:'#ddd', justifyContent: 'center' }}>
+  
+      <StatusBar backgroundColor="transparent" style="light" animated={true} translucent={true}/>
+  
+      <ImageBackground source={require('../src/image/star.gif')} resizeMode="cover" style={styles.image}>
+  
+  
+  
+      <View style={styles.modalView}>
+  
+      <FlatList
+        data={dataGeral}
+        keyExtractor = {item => item.id}
+        renderItem ={({item}) => (<CardServicos data={item}
+          linkFoto= {(item.link_foto)} //{(`http://intellissis2.ddns.net/${LimparPost2(item.Usuario)}.jpeg`)}
+          ranks = 'RAFAEL'//test
+          nome = {item.title}
+          descricao = {item.descricao}
+          duracao = 'A combinar' //{item.duracao}
+          valor = {item.valor_base}
+  
+          
+          /> )}
         />
-
-{/*Item 2 do cardápio */}
-<Text style={{color:'white', fontSize:25, marginBottom:20, marginTop:30, backgroundColor:'black'}}>
-           {'      '} Feijoada Completa {'        '}
-        </Text>
-        <Text style={{color:'black', backgroundColor:'white', borderColor:'orange', borderWidth:1,
-           fontSize:16, marginBottom:20, marginTop:0, textAlign:'center'}}
-          >Acompanha Arroz Branco, Farofa Caseira, Vinagrete e Couve Gourmet</Text>
-          <Image 
-        resizeMode='contain'
-        source={require('../src/image/capa3.jpg')}  
-        style={{width: 300, height:300, opacity:1, marginBottom: 30, marginTop:10 }} 
-        />
-
-{/*Item 3 do cardápio */}
-<Text style={{color:'white', fontSize:25, marginBottom:20, marginTop:30, backgroundColor:'black'}}>
-           {'      '} Caldo de Macaxeira {'        '}
-        </Text>
-        <Text style={{color:'black', backgroundColor:'white', borderColor:'orange', borderWidth:1,
-           fontSize:16, marginBottom:20, marginTop:0, textAlign:'center'}}
-          >Acompanha Arroz Branco, Farofa Caseira e Vinagrete. O caldo leva calabresa, queijo coalho, bacon e outros itens.</Text>
-          <Image 
-        resizeMode='contain'
-        source={require('../src/image/capa22.jpg')}  
-        style={{width: 300, height:300, opacity:1, marginBottom: 20, marginTop:10 }} 
-        />
+  
+          
+      </View>
+  
+  
+  
+  </ImageBackground>
+  </View>
+  
+      )
+  }
+  
+  
+  const styles = StyleSheet.create({
+      image: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        justifyContent: "center"
+      },
+      modalView: {
+        position: 'relative',
+        width: '100%',
+        height:600,
+        backgroundColor: 'grey',
+        opacity: 0.9,
+        alignSelf:'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#e3770b',
+        backgroundColor: 'transparent',
+        padding:7,
+        paddingEnd:0,
+      },
+      scrollView: {
+        alignItems:'center'
+      },
+  
+    })
     
-{/*Item 4 do cardápio */}
-<Text style={{color:'white', fontSize:25, marginBottom:20, marginTop:30, backgroundColor:'black'}}>
-           {''} Calabresa | Batata | Pastel {'  '}
-        </Text>
-        <Text style={{color:'black', backgroundColor:'white', borderColor:'orange', borderWidth:1,
-           fontSize:16, marginBottom:20, marginTop:0, textAlign:'center'}}
-          >Um mix de frituras saindo em forma de petisco para Happyhour's e afins</Text>
-          <Image 
-        resizeMode='contain'
-        source={require('../src/image/capa17.jpg')}  
-        style={{width: 300, height:300, opacity:1, marginBottom: 30, marginTop:10 }} 
-        />
-    </ScrollView>
-
-
-    </View>
-
-
-
-    </ImageBackground>
-    </View>
-);
-
-}
-
-const styles = StyleSheet.create({
-    image: {
-      flex: 1,
-      width: '100%',
-      height: '100%',
-      justifyContent: "center"
-    },
-    modalView: {
-      position: 'relative',
-      width: '90%',
-      height:600,
-      backgroundColor: 'grey',
-      opacity: 0.9,
-      alignSelf:'center',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: '#e3770b',
-      backgroundColor: 'white',
-      padding:10,
-    },
-    scrollView: {
-      alignItems:'center'
-    },
-
-  })

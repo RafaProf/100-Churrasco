@@ -1,10 +1,11 @@
 import * as React from 'react';
-import {View, Image, Text, StyleSheet, TouchableHighlight, StatusBar } from 'react-native';
+import {View, Text, StyleSheet, Alert, StatusBar } from 'react-native';
 import * as MyTheme from '../components/MyTheme';
 import { Button, Icon, Card, Overlay , Input} from '@rneui/base';
 import { useState, useEffect } from 'react';
 
 import Loader from '../components/Loader';
+import api from '../services/api';
 
 
 //REFERENCIAMENTO MUITO IMPORTANTE PRA CONTROLE
@@ -30,6 +31,9 @@ export function Login({navigation, route}) {
     const [isLoading, setIsLoading] = useState(false);
     const [passwordVisible, SetPasswordVisible] = useState(true);
     const [visibleCadastro, setVisibleCadastro] = useState(false); 
+    const [token, setToken] = useState("");
+
+    let textoDoAlerta = "   "
 
     const AlterarLoad = () => { //Altera o load...
     setIsLoading(!isLoading);
@@ -62,6 +66,102 @@ export function Login({navigation, route}) {
     const toggleOverlayCadastro = () => {
         setVisibleCadastro(!visibleCadastro);
     };
+
+
+
+    //Receber dados do login e envia [pra api]
+async function EnviarLogin(user, pass, navigation) {
+  
+  const Login = {
+    email : user,
+    senha : pass
+  }
+
+{console.log(Login);}
+console.log(api.getUri());
+
+try {
+
+  await api
+    .post('auth/sign-in', (Login))
+    .then((response) => { 
+      console.log(response.status);
+      
+      //Sucesso
+      if (response.status == 200)
+      {
+
+        setIsLoading(false);
+        inputSenha.current.clear();
+        inputUsuario.current.clear();
+        inputUsuario.current.focus();
+        
+        usuario = 'padrao' // Garantindo valores padrao no proximo login
+        senha = 'padrao'
+
+        
+        setToken( response.data.data.token); //Recuperando token
+        textoDoAlerta = response.data.message;        //Message vinda da api
+        console.log( 'TOKEN GERAL: ' + token); //Observando token - n ta funcionado legAL
+
+
+        Alert.alert(
+          "Sucesso",
+          textoDoAlerta,
+          [
+            {
+              text: "Cancelar",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            { text: "OK", onPress: () => navigation.navigate('Cardapio',  {
+              UserFly: user,
+              token: token,
+              otherParam: 'Testando',
+            }) }
+          ]
+        ); 
+      }
+
+      else{
+        Alert.alert('Falhou',"O login não foi possível.\n Confira os dados");
+        setIsLoading(false);
+        inputSenha.current.clear();
+        inputUsuario.current.clear();
+        inputUsuario.current.focus();
+        console.log(response.message);
+        const Login = {
+          email : user,
+          senha : pass
+        }
+      }
+    })
+    
+
+    //Erro post axios
+    .catch(error => {
+      console.log('Error', error);
+      
+      Alert.alert('Falhou',error.message);
+      setIsLoading(false);
+      inputSenha.current.clear();
+      inputUsuario.current.clear();
+      inputUsuario.current.focus();
+    });
+
+  }catch(err) {
+    // TODO
+    // adicionar tratamento da exceção
+    console.error(err);
+}
+
+}
+
+useEffect(() => {
+  setToken(token);
+  console.log(token);
+}, []);
+
 
     
     return(
@@ -115,7 +215,7 @@ export function Login({navigation, route}) {
 
 
     <Button type="solid" color= "#e3770b" titleStyle={{ color: '#fff', marginHorizontal: 2 }}
-      onPress={() => { AlterarLoad(); inputSenha.current.clear(); inputUsuario.current.clear();}} //Altera o load gif da tela e limpa senha, faz login
+      onPress={() => {EnviarLogin(usuario, senha, navigation); AlterarLoad(); inputSenha.current.clear(); inputUsuario.current.clear();}} //Altera o load gif da tela e limpa senha, faz login
       buttonStyle={{ backgroundColor: '#e3770b' }}
       containerStyle={{
         width: 200,

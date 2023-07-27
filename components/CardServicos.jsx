@@ -21,7 +21,7 @@ const toggleOverlay = () => {
   
   }, []) 
 
-
+console.log( props.data.link_foto);
 return(
     <Card containerStyle = {{backgroundColor:'rgba(23, 3, 39, 0.97)', borderRadius:25, borderWidth:2, marginLeft:5, marginRight:5}}>
       <View style={{flex:1, justifyContent:'center', backgroundColor:'transparent'}}>
@@ -31,7 +31,7 @@ return(
       <TouchableHighlight onPress={() => toggleOverlay()}/*Foto clicável*/>
       { <Image 
                   //source={(imagemPerfil)}
-                   source={{uri: props.linkFoto}}
+                   source={{uri: props.data.link_foto}}
                   style={styles.sideMenuProfileIcon}
                   resizeMode='cover'
                   
@@ -42,7 +42,7 @@ return(
         {/*Titulo do Card */}
         <Text style={{color: 'white', margin:10, fontWeight:'bold', fontSize:13}}>
 
-        {props.nome}
+        {props.data.nome}
         </Text>
 
       </View>
@@ -52,10 +52,10 @@ return(
         ▶ Descrição: {'  '}{props.data.descricao} {'\n'}
         </Text>
         <Text style={{color: 'white'}}>
-        ▶ Duração: {'  '}{props.data.duracao} {'\n'}
+        ▶ Duração: {'  '}{'A combinar'}{'\n'} {/*{props.data.duracao}  */}
         </Text>
         <Text style={{color: 'white'}}>
-        ▶ Valor Base: {'  '}{props.data.valorBase} {'\n'}
+        ▶ Valor Base: {'  '}{props.data.valor_base} {'\n'}
         </Text>
     
 
