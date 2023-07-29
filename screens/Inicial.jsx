@@ -15,6 +15,7 @@ import { Cardapio } from './Cardapio';
 import { Servicos } from './Servicos';
 import { Login } from './Login';
 import { Agendamentos } from './Agendamentos';
+import { Realizar_Agendamento } from './Realizar_Agendamento';
 
 //Config Toast
 const toastConfig = {
@@ -113,6 +114,25 @@ function AgendaScreenStack({navigation}) {
       <Stack.Screen
         name="Agendamentos_Ini"
         component={Agendamentos}
+        options={{
+          headerShown: false,
+          headerLeft: () => (
+            <NavigationDrawerStructure 
+              navigationProps={navigation}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function RelAgendaScreenStack({navigation}) {
+  return (
+    <Stack.Navigator initialRouteName="Realizar Agendamentos">
+      <Stack.Screen
+        name="Agendamentos_Rel"
+        component={Realizar_Agendamento}
         options={{
           headerShown: false,
           headerLeft: () => (
@@ -250,13 +270,15 @@ linkFoto={(`http://intellissis2.ddns.net/${route.params.UserFly}.jpeg`)} />}>
 <Drawer.Screen //Tela Agendamento - nav
     name="Agendamento"
 
-    options={{drawerLabel: 'Agendamento', drawerIcon: MyTheme.IconeAgenda(), 
+    options={{drawerLabel: 'Ver Agenda', drawerIcon: MyTheme.IconeAgenda(), 
     headerShown: true, headerTransparent: true,
     headerStyle:{}, headerTintColor:'#fff', headerTitleAlign:'center',  headerTitle:'Agendamento',
     headerTitleStyle:{fontWeight: 'normal'} }}
     initialParams={{ meusParametros: route.params }} //IMPORTANTE
     component={AgendaScreenStack} 
   />
+
+
 
 <Drawer.Screen //Tela Login - nav
     name="Login"
@@ -276,6 +298,7 @@ linkFoto={(`http://intellissis2.ddns.net/${route.params.UserFly}.jpeg`)} />}>
 
   )
 }
+
 
 const styles = StyleSheet.create({
   image: {

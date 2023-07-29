@@ -27,18 +27,18 @@ const toggleOverlay = () => {
 
   console.log(datahora.toLocaleTimeString('pt-BR', {timeZone: 'UTC'}));
 
-  console.log(props.usuario);
+  //console.log(props.usuario);
 
 return(
-    <Card containerStyle = {{backgroundColor:'rgba(23, 3, 39, 0.97)', borderRadius:25, borderWidth:2, marginLeft:5, marginRight:5}}>
+    <Card containerStyle = {{backgroundColor:'rgba(192, 175, 46, 0.8)', borderRadius:25, borderWidth:2, marginLeft:5, marginRight:5}}>
       <View style={{flex:1, justifyContent:'center', backgroundColor:'transparent'}}>
       
       <View style={{flexDirection:'row', alignItems:'center', marginBottom:5}}> 
 
-      <TouchableHighlight onPress={() => toggleOverlay()}/*Foto clicável*/>
+      <TouchableHighlight /* onPress={() => toggleOverlay()}Foto clicável*/>
       { <Image 
-                  //source={(imagemPerfil)}
-                   source={{uri: props.linkFoto}}
+                   source={require('../src/image/calendario.jpg')}
+                   //source={{uri: 'https://www.hub2b.com.br/blog/wp-content/uploads/2020/01/calendario-post-midias.jpg'}} //props.linkFoto
                   style={styles.sideMenuProfileIcon}
                   resizeMode='cover'
                   
