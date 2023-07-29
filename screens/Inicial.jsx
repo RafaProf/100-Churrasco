@@ -14,6 +14,7 @@ import { Lobby } from './Lobby';
 import { Cardapio } from './Cardapio';
 import { Servicos } from './Servicos';
 import { Login } from './Login';
+import { Agendamentos } from './Agendamentos';
 
 //Config Toast
 const toastConfig = {
@@ -108,10 +109,10 @@ const NavigationDrawerStructure = (props) => {
 //Chamada de screen's
 function AgendaScreenStack({navigation}) {
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="Agendamentos">
       <Stack.Screen
-        name="Home"
-        component={Lobby}
+        name="Agendamentos_Ini"
+        component={Agendamentos}
         options={{
           headerShown: false,
           headerLeft: () => (

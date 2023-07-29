@@ -4,10 +4,9 @@ import * as MyTheme from '../components/MyTheme';
 import { Button, Icon, Card, Overlay } from '@rneui/base';
 import { useState, useEffect } from 'react';
 
-export function CardServicos(props){ //Recebo o style pela propriedade 
+export function CardAgendamento (props){ //Recebo o style pela propriedade 
 
 
-const [imagemPerfil, setImagemPerfil] = useState(require('../src/image/avatar/img_avatar2.png')); //imagem base
 const [visible, setVisible] = useState(false); 
 
 //Visibilidade da foto
@@ -16,12 +15,20 @@ const toggleOverlay = () => {
   };
 
 
-
   useEffect(() => {
   
   }, []) 
 
-console.log( props.linkFoto);
+
+  //Importante para o tratamento de dia / hora
+  let datahora = new Date(props.data.data)
+  let soData = datahora.toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+  let soHora = datahora.toLocaleTimeString('pt-BR', {timeZone: 'UTC'})
+
+  console.log(datahora.toLocaleTimeString('pt-BR', {timeZone: 'UTC'}));
+
+  console.log(props.usuario);
+
 return(
     <Card containerStyle = {{backgroundColor:'rgba(23, 3, 39, 0.97)', borderRadius:25, borderWidth:2, marginLeft:5, marginRight:5}}>
       <View style={{flex:1, justifyContent:'center', backgroundColor:'transparent'}}>
@@ -42,20 +49,20 @@ return(
         {/*Titulo do Card */}
         <Text style={{color: 'white', margin:10, fontWeight:'bold', fontSize:13}}>
 
-        {props.data.nome}
+        { soData} {'\n'} {soHora} {'h'}
         </Text>
 
       </View>
       
         {/*INFORMAÇÕES DO CARD SERVIÇOS */}
         <Text style={{color: 'white'}}>
-        ▶ Descrição: {'  '}{props.data.descricao} {'\n'}
+        ▶ Serviço: {'  '}{props.servico[props.data.id_servico].nome} 
         </Text>
         <Text style={{color: 'white'}}>
-        ▶ Duração: {'  '}{'A combinar'}{'\n'} {/*{props.data.duracao}  */}
+        ▶ Cardápio: {'  '}{props.cardapio[props.data.id_cardapio].nome} 
         </Text>
         <Text style={{color: 'white'}}>
-        ▶ Valor Base: {'  '}{props.data.valor_base} {'\n'}
+        ▶ Usuário: {'  '}{props.usuario[props.data.id_usuario].nome} 
         </Text>
     
 

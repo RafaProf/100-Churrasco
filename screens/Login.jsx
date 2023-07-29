@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {View, Text, StyleSheet, Alert, StatusBar } from 'react-native';
+import * as yup from 'yup';
 import * as MyTheme from '../components/MyTheme';
 import { Button, Icon, Card, Overlay , Input} from '@rneui/base';
 import { useState, useEffect } from 'react';
@@ -15,6 +16,18 @@ const inputUsuario = React.createRef();
 const inputCadUsuario = React.createRef();
 const inputCadNome = React.createRef();
 const inputCadSenha = React.createRef();
+const inputCadEndereco = React.createRef();
+const inputCadTelefone = React.createRef();
+
+//YUP esquema
+let schema = yup.object().shape({
+  nome: yup.string().required(),
+  endereco: yup.string().required(),
+  email: yup.string().email().required(),
+  tefone: yup.number().required().positive().integer(),
+  website: yup.string().url(),
+ // createdOn: date().default(() => new Date()),
+});
 
 //Padrao do login
 export var usuario = 'rafa';
@@ -24,6 +37,8 @@ export var senha = '123456';
 export var usuarioCadastro = 'rafa@gmail.com';
 export var nomeCadastro = 'rafa';
 export var senhaCadastro = '123456';
+export var telefoneCadastro = '(84)99999-9999'
+export var enderecoCadastro = 'Rua X, Nº xx'
 
 export function Login({navigation, route}) {
 
@@ -80,6 +95,8 @@ async function EnviarLogin(user, pass, navigation) {
 {console.log(Login);}
 console.log(api.getUri());
 
+
+//Login
 try {
 
   await api
@@ -269,6 +286,8 @@ useEffect(() => {
       <Input
             placeholder= {'Email '} //Lembrar das chaves para concat
             ref={inputCadUsuario} 
+            keyboardType='email-address'
+            autoComplete='email'
             clearTextOnFocus={true}
             selectTextOnFocus={true}
             placeholderTextColor="#fff9" 
@@ -311,14 +330,16 @@ useEffect(() => {
 
 <Input
             placeholder= {'Telefone '} //Lembrar das chaves para concat
-            ref={inputCadNome} 
+            ref={inputCadTelefone} 
             clearTextOnFocus={true}
             selectTextOnFocus={true}
+            keyboardType='phone-pad'
+            maxLength={14}
             placeholderTextColor="#fff9" 
             errorStyle={{ color: 'orange' }}
             errorMessage='(xx)xxxxx-xxxx'
             style={{color: '#fff'}}
-            onChangeText={value => (nomeCadastro = value)}
+            onChangeText={value => (telefoneCadastro = value)}
             //rightIcon={<Icon name="close" size={20}/>}
             leftIcon={
                 <Icon
@@ -331,14 +352,14 @@ useEffect(() => {
 
 <Input
             placeholder= {'Endereço '} //Lembrar das chaves para concat
-            ref={inputCadNome} 
+            ref={inputCadEndereco}  
             clearTextOnFocus={true}
             selectTextOnFocus={true}
             placeholderTextColor="#fff9" 
             errorStyle={{ color: 'orange' }}
             errorMessage='Rua xxx, Nº xx, Natal - RN'
             style={{color: '#fff'}}
-            onChangeText={value => (nomeCadastro = value)}
+            onChangeText={value => (enderecoCadastro = value)}
             //rightIcon={<Icon name="close" size={20}/>}
             leftIcon={
                 <Icon
@@ -357,6 +378,7 @@ useEffect(() => {
         selectTextOnFocus={true}
         placeholderTextColor="#fff9" 
         style={{color: '#fff'}}
+        errorMessage='Mínimo 6 - Máximo 10 | Obrigatório: Letra maiúscula, minúscula, caractere especial e número'
         onChangeText={value => (senhaCadastro = value)}   
         rightIcon={eye(passwordVisible)}
         leftIcon={
@@ -382,7 +404,7 @@ useEffect(() => {
         }
         title="Cadastrar"
         buttonStyle={{ backgroundColor: '#120577', margin:9 }}
-        onPress={toggleOverlayCadastro}
+        onPress={() => {Cadastrar(usuarioCadastro, nomeCadastro, telefoneCadastro, enderecoCadastro, senhaCadastro, navigation, toggleOverlayCadastro() ); toggleOverlayCadastro }}
       />
 
       <Button
@@ -428,7 +450,126 @@ useEffect(() => {
     )
 }
 
+async function Cadastrar(email_, nome_, telefone_, endereco_, senha_, navigation) {
+  
+  //const [isLoading, setIsLoading] = useState(false);
+  const AlterarLoad = () => { //Altera o load...
+    setIsLoading(!isLoading);
+  }
 
+
+  const dados = {
+    email : email_,
+    nome : nome_,
+    telefone : telefone_,
+    endereco : endereco_,
+    senha : senha_
+  }
+
+  console.log(dados);
+
+try {
+
+  await api
+    .post('auth/sign-up', (dados))
+    .then((response) => { 
+      console.log(response.status);
+      textoDoAlerta = response.data.message;        //Message vinda da api
+
+
+      //Sucesso
+      if (response.status == 200 || 201)
+      {
+
+       // setIsLoading(false);
+        inputSenha.current.clear();
+        inputUsuario.current.clear();
+        inputUsuario.current.focus();
+        
+        email_ = 'padrao' 
+        nome_ = 'padrao'
+        telefone_ = 'padrao'
+        endereco_  = 'padrao'
+        senha_ = 'padrao'
+
+
+        Alert.alert(
+          "Sucesso",
+          textoDoAlerta + "\nAgora faça login no sistema",
+          [
+            {
+              text: "Cancelar",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            { text: "OK", onPress: () => navigation.navigate('Login',  {
+              UserFly: usuarioCadastro,
+              otherParam: 'Testando',           
+            }) }
+          ]
+        ); 
+      }
+
+      //existente login
+      else if (response.status == 401)
+      {
+          Alert.alert(
+          "Falha",
+          textoDoAlerta,
+          [
+            {
+              text: "Cancelar",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            { text: "OK", onPress: () =>  navigation.navigate('Login',  {
+              UserFly: user,
+              token: token,
+              otherParam: 'Testando',
+            }) }
+          ]
+        ); 
+
+      }
+
+      else{
+        Alert.alert('Falhou',"O cadastro não foi possível.\n Confira os dados");
+        //setIsLoading(false);
+        inputSenha.current.clear();
+        inputUsuario.current.clear();
+        inputUsuario.current.focus();
+        console.log(response.message);
+        
+        email_ = 'padrao' 
+        nome_ = 'padrao'
+        telefone_ = 'padrao'
+        endereco_  = 'padrao'
+        senha_ = 'padrao'
+
+        
+      }
+    })
+    
+
+    //Erro post axios
+    .catch(error => {
+      console.log('Error', error);
+      
+      Alert.alert('Falhou',error.message);
+      //setIsLoading(false);
+      inputSenha.current.clear();
+      inputUsuario.current.clear();
+      inputUsuario.current.focus();
+    });
+
+  }catch(err) {
+    // TODO
+    // adicionar tratamento da exceção
+    console.error(err);
+}
+
+
+}
 
 //Styles
 const styles = StyleSheet.create({

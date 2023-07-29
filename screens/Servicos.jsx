@@ -104,7 +104,7 @@ export function Servicos({navigation, route}) {
       data={dataGeral}
       keyExtractor = {item => item.id}
       renderItem ={({item}) => (<CardServicos data={item}
-        linkFoto= {(item.link_foto)} //{(`http://intellissis2.ddns.net/${LimparPost2(item.Usuario)}.jpeg`)}
+        linkFoto= {`${api.getUri()}files/uploads/${item.link_foto}`} //{(`http://intellissis2.ddns.net/${LimparPost2(item.Usuario)}.jpeg`)}
         ranks = 'RAFAEL'//test
         nome = {item.title}
         descricao = {item.descricao}
