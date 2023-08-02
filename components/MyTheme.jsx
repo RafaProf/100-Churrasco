@@ -70,3 +70,7 @@ export  function IconeLock (){
   export  function IconeLogin (){
     return(({ focused, color, size }) => <Icon color={color} type='entypo' size={size} name={focused ? 'location' : 'location'} />)
   }
+
+  export  function IconeFeedback (){
+    return(({ focused, color, size }) => <Icon color={color} type='materialicons' size={size} name={focused ? 'stars' : 'stars'} />)
+  }

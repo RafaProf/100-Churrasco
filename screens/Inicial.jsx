@@ -16,6 +16,7 @@ import { Servicos } from './Servicos';
 import { Login } from './Login';
 import { Agendamentos } from './Agendamentos';
 import { Realizar_Agendamento } from './Realizar_Agendamento';
+import { Feedback } from './Feedback';
 
 //Config Toast
 const toastConfig = {
@@ -203,6 +204,25 @@ function LoginStack({navigation}) {
   );
 }
 
+function FeedbackStack({navigation}) {
+  return (
+    <Stack.Navigator initialRouteName="Feedback">
+      <Stack.Screen
+        name="Feedback_Ini"
+        component={Feedback}
+        options={{
+          headerShown: false,
+          headerLeft: () => (
+            <NavigationDrawerStructure 
+              navigationProps={navigation}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 export default function Inicial({route, navigation}, props) {
 
    //Cuidando da barra de navegação - android
@@ -232,7 +252,7 @@ screenOptions={{
   },
 }}
 drawerContent={(props) => <CustomSidebarMenu  {...props}
-linkFoto={(`http://intellissis2.ddns.net/${route.params.UserFly}.jpeg`)} />}>
+linkFoto={(`http://intellissis2.ddns.net/${route.params.UserFly}.jpeg`)} />}> 
 
   <Drawer.Screen //Tela principal - nav
     name="Home"
@@ -289,6 +309,17 @@ linkFoto={(`http://intellissis2.ddns.net/${route.params.UserFly}.jpeg`)} />}>
     headerTitleStyle:{fontWeight: 'normal'} }}
     initialParams={{ meusParametros: route.params }} //IMPORTANTE
     component={LoginStack} 
+  />
+
+<Drawer.Screen //Tela Feed - nav
+    name="Feedback"
+
+    options={{drawerLabel: 'Feedback', drawerIcon: MyTheme.IconeFeedback(), 
+    headerShown: true, headerTransparent: true,
+    headerStyle:{}, headerTintColor:'#fff', headerTitleAlign:'center',  headerTitle:'Feedback',
+    headerTitleStyle:{fontWeight: 'normal'} }}
+    initialParams={{ meusParametros: route.params }} //IMPORTANTE
+    component={FeedbackStack} 
   />
 
 </Drawer.Navigator>

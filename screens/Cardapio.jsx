@@ -7,11 +7,12 @@ import * as NavigationBar from 'expo-navigation-bar';
 
 import { CardServicos } from '../components/CardServicos';
 import api from '../services/api';
-
+import Loader from '../components/Loader';
 
 export function Cardapio({navigation, route}) {
 
   const [dataGeral, seteDATA] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   //Efeito pra atualizar 
     useEffect(() =>{
@@ -22,9 +23,11 @@ export function Cardapio({navigation, route}) {
         console.log("chegou o cardápio"); 
   
         seteDATA(response.data.data) //Definindo o array de DATA Json
+        setIsLoading(false);
         console.log(dataGeral[0]);
       })
       .catch(function (error) {
+        setIsLoading(false);
         console.error(error);
       })
       }
@@ -42,7 +45,8 @@ export function Cardapio({navigation, route}) {
   
       <ImageBackground source={require('../src/image/star.gif')} resizeMode="cover" style={styles.image}>
   
-  
+        {/*isLoading && <ActivityIndicator size="large" color="#e3770b" />*/}
+        <Loader isLoading={isLoading} />
   
       <View style={styles.modalView}>
   

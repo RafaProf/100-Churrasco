@@ -65,19 +65,6 @@ const CustomSidebarMenu = (props) => {
           icon= {MyTheme.IconeContact()}
         />
         
-        <View style={styles.customItem}>
-          <Image
-            source={{uri: BASE_PATH + 'star_filled.png'}}
-            style={styles.iconStyle}
-          />
-          <Text
-            onPress={() => {
-              Linking.openURL('https://playstore.com/');
-            }}>
-            {"        "}Nos Avalie
-          </Text>
-          
-        </View>
       </DrawerContentScrollView>
 
       <Icon style={{paddingBottom:0}}

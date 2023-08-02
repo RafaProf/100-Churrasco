@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, StyleSheet, Alert, StatusBar } from 'react-native';
+import {View, Text, StyleSheet, Alert, StatusBar, KeyboardAvoidingView } from 'react-native';
 import * as yup from 'yup';
 import * as MyTheme from '../components/MyTheme';
 import { Button, Icon, Card, Overlay , Input} from '@rneui/base';
@@ -278,7 +278,8 @@ useEffect(() => {
       <Overlay isVisible={visibleCadastro} onBackdropPress={toggleOverlayCadastro} 
       overlayStyle={{width:350, alignItems:'center', borderColor:'orange', borderWidth:1}}
       >
-      
+       <KeyboardAvoidingView contentContainerStyle={styles.box} behavior="position" enabled>
+
       <Text style={styles.formulario}>
         Preencha os campos com os dados solicitados
       </Text>
@@ -391,7 +392,7 @@ useEffect(() => {
             <Text style={{color:"#fff9", fontSize:11, marginTop:10}}>Nos preocupamos com sua privacidade de dados, 
             eles não serão divulgados</Text>
             
-            
+            </KeyboardAvoidingView>
       <Button
         icon={
           <Icon
