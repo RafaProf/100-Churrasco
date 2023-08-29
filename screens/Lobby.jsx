@@ -1,11 +1,7 @@
 import * as React from 'react';
-import {View, Image, Text, StyleSheet, ImageBackground, BackHandler, Alert, ScrollView } from 'react-native';
-import Toast from 'react-native-toast-message';
+import {View, Image, Text, StyleSheet, ImageBackground, ScrollView } from 'react-native';
+//import Toast from 'react-native-toast-message';
 import { StatusBar } from 'expo-status-bar';
-import { Button, Divider, Overlay} from '@rneui/base';
-import { useState, useEffect } from 'react';
-import moment from "moment";
-import { color } from 'react-native-reanimated';
 
 
 //Tela inicial assim que passa o 'bem vindo'

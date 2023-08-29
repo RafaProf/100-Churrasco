@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, createTheme } from '@rneui/themed';
+import { Icon } from '@rneui/themed';
 
 
 //Testar

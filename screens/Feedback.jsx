@@ -1,8 +1,7 @@
 import React, {useState} from 'react'; 
 import { SafeAreaView, StyleSheet, View, Text, Image, TouchableOpacity, KeyboardAvoidingView, Alert} from 'react-native'; 
-import { Input, Icon } from '@rneui/themed';
+import { Input } from '@rneui/themed';
 import api from '../services/api';
-import { color } from 'react-native-reanimated';
 
 import Loader from '../components/Loader';
 

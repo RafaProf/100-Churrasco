@@ -1,12 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect  } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, ImageBackground, FlatList } from 'react-native';
-import { Button } from '@rneui/base';
-import { Icon  } from "@rneui/themed";
-import * as NavigationBar from 'expo-navigation-bar';
+import React from 'react';
+import { Text, View } from 'react-native';
 
-import { CardAgendamento } from '../components/CardAgendamento';
-import api from '../services/api';
 
 
 export function Realizar_Agendamento({navigation, route}) {

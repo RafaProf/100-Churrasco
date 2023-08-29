@@ -1,10 +1,9 @@
 import * as React from 'react';
-import {View, TouchableOpacity, Image, Text, StyleSheet, Button, ImageBackground} from 'react-native';
+import {View, TouchableOpacity, Image, Text, StyleSheet} from 'react-native';
 import 'react-native-gesture-handler';
 import {createNativeStackNavigator } from '@react-navigation/native-stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import * as NavigationBar from 'expo-navigation-bar';
-import { StatusBar } from 'expo-status-bar';
 import Toast, { BaseToast, ErrorToast, InfoToast } from 'react-native-toast-message'
 
 //Importação dos métodos de ação

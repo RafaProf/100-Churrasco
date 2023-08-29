@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {View, Text, StyleSheet, Alert, StatusBar, KeyboardAvoidingView } from 'react-native';
 import * as yup from 'yup';
-import * as MyTheme from '../components/MyTheme';
-import { Button, Icon, Card, Overlay , Input} from '@rneui/base';
+import { Button, Icon, Overlay , Input} from '@rneui/base';
 import { useState, useEffect } from 'react';
 
 import Loader from '../components/Loader';

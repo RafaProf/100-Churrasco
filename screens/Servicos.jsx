@@ -1,9 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect  } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, ImageBackground, FlatList } from 'react-native';
-import { Button } from '@rneui/base';
-import { Icon  } from "@rneui/themed";
-import * as NavigationBar from 'expo-navigation-bar';
+import { StyleSheet, View, ImageBackground, FlatList } from 'react-native';
 
 import { CardServicos } from '../components/CardServicos';
 import api from '../services/api';

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect  } from 'react';
-import { StyleSheet, Text, View, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { Button, Overlay } from '@rneui/base';
 import { Icon  } from "@rneui/themed";
 import DatePicker, {getFormatedDate }  from 'react-native-modern-datepicker';
