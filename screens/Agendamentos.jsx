@@ -10,6 +10,13 @@ import { CardAgendamento } from '../components/CardAgendamento';
 import api from '../services/api';
 
 
+  //Importante para o tratamento de dia / hora
+  let datahora = new Date().toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+
+ // console.log(datahora.toLocaleTimeString('pt-BR', {timeZone: 'UTC'}));
+//console.log(datahora);
+
+
 export function Agendamentos({navigation, route}) {
 
 const base = [
@@ -96,10 +103,10 @@ console.log(moment().format('YYYY-MM-DD'));
           })
         }
          
-      obterUsuario();
-      obterAgenda();
       obterCardapio();
       obterServico();
+      obterUsuario();
+      obterAgenda();
 
   
     }, [])
@@ -141,7 +148,7 @@ console.log(moment().format('YYYY-MM-DD'));
         linkFoto= {`${api.getUri()}files/uploads/${item.link_foto}`} //{(`http://intellissis2.ddns.net/${LimparPost2(item.Usuario)}.jpeg`)}
         cardapio = {dataGeralCardapio}
         servico = {dataGeralServico}
-        usuario = {dataGeralUsuario}
+        //usuario = {dataGeralUsuario}
 
         
         /> )}
@@ -175,7 +182,7 @@ console.log(moment().format('YYYY-MM-DD'));
               isGregorian: true,
               
             }}
-            current="2023-07-13"
+            current={moment().format('YYYY-MM-DD')}
             minimumDate= {moment().format('YYYY-MM-DD')}
             maximumDate="2220-07-25"
             selected={getFormatedDate(new Date(), 'DD/MM/YYYY')}

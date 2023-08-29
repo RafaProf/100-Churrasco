@@ -62,7 +62,7 @@ return(
         ▶ Cardápio: {'  '}{props.cardapio[props.data.id_cardapio].nome} 
         </Text>
         <Text style={{color: 'white'}}>
-        ▶ Usuário: {'  '}{props.usuario[props.data.id_usuario].nome} 
+        ▶ Usuário: Restrito {/*{'  '}{props.usuario[props.data.id_usuario].nome} */} 
         </Text>
     
 
